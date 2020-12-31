@@ -85,5 +85,6 @@ module ALU(
                 default:
                     o_output = 0;
             endcase
-    end       
+    end    
+       
 endmodule

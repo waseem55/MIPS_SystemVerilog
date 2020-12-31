@@ -20,7 +20,7 @@ module register_file(
     output  logic   [31:0]  o_reg2
     );
     
-    logic   [31:0]  register [0:31] = '{default : 0};
+    logic   [31:0]  register [32] = '{default : 0};
     
     always_latch
     begin
@@ -30,9 +30,5 @@ module register_file(
         o_reg1 = register [i_r_reg1];
         o_reg2 = register [i_r_reg2];
     end
-    
-    
-    
-    
     
 endmodule
