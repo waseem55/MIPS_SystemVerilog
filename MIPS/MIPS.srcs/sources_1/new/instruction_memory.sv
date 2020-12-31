@@ -5,13 +5,13 @@ Module Name: Data Memory
 Project Name: MIPS
 Target Devices: ARTY Z20
 Description: 
-The data memory has a width of 32 bits and depth of 128.
+The instruction memory has a width of 32 bits and depth of 128.
 Following the MIPS convention and for future plans, it can only be addressed
 using word aligned addressing 
 
 --------------------------------------------------------------------------------*/
 
-module data_memory#(
+module instruction_memory #(
     
     parameter   width   =   32,
     parameter   depth   =   128
@@ -19,9 +19,9 @@ module data_memory#(
     
     (
     input   logic   [31:0]      i_address,
-    input   logic   [width-1:0] i_data,
+    input   logic   [width-1:0] i_instruction,
     input   logic               i_wen,
-    output  logic   [width-1:0] o_data
+    output  logic   [width-1:0] o_instruction
     );
     
     logic   [width-1:0] mem [depth] = '{default : 0};
@@ -34,9 +34,9 @@ module data_memory#(
         if (i_address[1:0] == 2'b00)
         begin
             if (i_wen)
-                mem[address] = i_data;
-            o_data = mem[address];
+                mem[address] = i_instruction;
+            o_instruction = mem[address];
         end
     end
-    
+
 endmodule
