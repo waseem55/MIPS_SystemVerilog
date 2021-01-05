@@ -17,16 +17,16 @@ module pipeline_register#(
     )
     
     (
-    input   logic                       i_clk,
-    input   logic   [width-1:0]         i_words[num_of_words],
-    input   logic                       i_control_bits[num_of_bits],
-    input   logic                       i_reset,
-    output  logic   [width-1:0]         o_out_words[num_of_words],
-    output  logic                       o_out_bits[num_of_bits]
+    input   logic                               i_clk,
+    input   logic   [num_of_words-1:0][width-1:0]   i_words,
+    input   logic   [num_of_bits-1:0]               i_control_bits,
+    input   logic                               i_reset,
+    output  logic   [num_of_words-1:0][width-1:0]   o_out_words,
+    output  logic   [num_of_bits-1:0]               o_out_bits
     );
     
-    logic   [width-1:0] words [num_of_words] = '{default : 0};
-    logic               control_bits [num_of_bits] = '{default : 0};
+    logic   [num_of_words-1:0][width-1:0] words  = '{default : 0};
+    logic   [num_of_bits-1:0]      control_bits  = '{default : 0};
     
     always_ff @(posedge i_clk)
     begin

@@ -13,8 +13,8 @@ Register R0 holds 32'h00000000 and cannot be written to.
 module register_file #(
 
     parameter   width       =   32,
-    parameter   num_of_regs =   32,
-    parameter   add_bits    =   5
+    parameter   num_of_regs =   32,     // number of registers
+    parameter   add_bits    =   5       // number of bits to address registers = log2(num_of_regs)
     )
 
     (
