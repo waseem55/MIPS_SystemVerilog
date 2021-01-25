@@ -69,8 +69,7 @@ module top_module(
     
     controller conrtoller
     (
-    .i_opcode               (if_id_out_0[32:27]),
-    .i_funct                (if_id_out_0[5:0]),
+    .i_opcode               (if_id_out_0[31:26]),
     .o_alusrc               (alusrc),
     .o_reg_file_dst         (reg_file_dst),
     .o_reg_file_w           (reg_file_w),
@@ -81,7 +80,7 @@ module top_module(
     pipeline_register #(32, 4, 4) id_ex
     (
     .i_clk                  (i_clk),
-    .i_words                ({id_ex_in_0, id_ex_in_1, id_ex_in_2, {16'b0,opcode_funct, shamt, reg_file_dst_data}}),
+    .i_words                ({id_ex_in_0, id_ex_in_1, id_ex_in_2, {16'b0,opcode_funct, if_id_out_0[9:5], reg_file_dst_data}}),    // reg1, reg2, imm, {opcode/funct, shamt, destination reg}
     .i_control_bits         ({alusrc, reg_file_w, mem_w, wdata_slct}),
     .i_reset                (i_reset),
     .o_out_words            ({id_ex_out_0, id_ex_out_1, id_ex_out_2, id_ex_out_3}),
@@ -90,9 +89,9 @@ module top_module(
     
     ALU alu
     (
-    .i_opcode                (id_ex_out_3[22:17]),
+    .i_opcode                (id_ex_out_3[15:10]),
     .i_reg_not_imm           (id_ex_obit0),
-    .i_shamt                 (id_ex_out_3[27:23]),
+    .i_shamt                 (id_ex_out_3[9:5]),
     .i_operand1              (id_ex_out_0),
     .i_operand2              (operand2),
     .o_output                (ex_mem_in_0)
@@ -127,7 +126,7 @@ module top_module(
     );
     
     // mux to send opcode or funct to ALU
-    assign opcode_funct = (if_id_out_0 == 6'b000000) ? if_id_out_0[5:0] : if_id_out_0[32:27];
+    assign opcode_funct = (if_id_out_0[31:26] == 6'b000000) ? if_id_out_0[5:0] : if_id_out_0[31:26];
     
     // mux to decide operand2 of ALU
     assign operand2 = id_ex_obit0 ? id_ex_out_1 : id_ex_out_2;

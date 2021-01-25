@@ -15,7 +15,6 @@ immediate format: addi $t, $s, i    ooooooss sssttttt iiiiiiii iiiiiiii
 
 module controller(
     input   logic   [5:0]   i_opcode,
-    input   logic   [5:0]   i_funct, 
     output  logic           o_alusrc,           // 1 if register instruction, 0 if immediate instruction
     output  logic           o_reg_file_dst,     // 1 if the instruction destination in the reg file is $d, 0 if $t
     output  logic           o_reg_file_w,       // 1 enable write to reg file
